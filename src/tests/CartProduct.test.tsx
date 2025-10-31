@@ -3,7 +3,8 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import { MantineProvider } from "@mantine/core";
-import { CartContextProvider } from "../context";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 
 describe("CartProduct component", () => {
   let product = {
@@ -19,14 +20,14 @@ describe("CartProduct component", () => {
   beforeEach(() => {
     render(
       <MantineProvider>
-        <CartContextProvider>
+        <Provider store={store()}>
           <CartProduct product={product} />
-        </CartContextProvider>
+        </Provider>
       </MantineProvider>,
     );
   });
 
-  it("should render ProductCard with correct props", () => {
+  it("карточка должна рендериться с верно переданным пропсом", () => {
     const card = screen.getByText(/brocolli/i);
     expect(card).toBeInTheDocument();
   });

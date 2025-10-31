@@ -3,7 +3,8 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import { MantineProvider } from "@mantine/core";
-import { CartContextProvider } from "../context";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 
 describe("ProductCard component", () => {
   const product = {
@@ -18,18 +19,18 @@ describe("ProductCard component", () => {
   beforeEach(() => {
     render(
       <MantineProvider>
-        <CartContextProvider>
+        <Provider store={store()}>
           <ProductCard product={product} />
-        </CartContextProvider>
+        </Provider>
       </MantineProvider>,
     );
   });
 
-  it("should render ProductCard with correct props", () => {
+  it("ProductCard должен рендериться при корректно переданных пропсах", () => {
     const card = screen.getByText(/brocolli/i);
     expect(card).toBeInTheDocument();
   });
-  it("should change stepperCount on click", () => {
+  it("по клику stepperCount должен меняться", () => {
     const stepperDown = screen.getByTestId("stepper-down");
     const stepperUp = screen.getByTestId("stepper-up");
     const stepperCount = screen.getByTestId("stepper-count");

@@ -4,13 +4,17 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import { MantineProvider } from "@mantine/core";
 import { App } from "../pages/App";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 
 describe("App component", () => {
-  it("should render App", () => {
+  it("компонент App должен рендериться", () => {
     render(
       <StrictMode>
         <MantineProvider>
-          <App />
+          <Provider store={store()}>
+            <App />
+          </Provider>
         </MantineProvider>
       </StrictMode>,
     );

@@ -13,8 +13,8 @@ export function ProductList() {
   const dispatch = useTypedDispatch();
   const isLoading = useTypedSelector((state) => state.products.isLoading);
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
+    products.length === 0 && dispatch(fetchProducts());
+  }, [dispatch]);
   return (
     <main className={cx("main-content")}>
       {isLoading ? (

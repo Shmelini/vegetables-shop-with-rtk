@@ -3,18 +3,19 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import { MantineProvider } from "@mantine/core";
-import { CartContextProvider } from "../context";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 
 describe("Header component", () => {
   render(
     <MantineProvider>
-      <CartContextProvider>
+      <Provider store={store()}>
         <Header />
-      </CartContextProvider>
+      </Provider>
     </MantineProvider>,
   );
 
-  it("should render Header", () => {
+  it("компонет Header должен рендериться", () => {
     const shopLogo = screen.getByAltText(/vegetable shop/i);
     const cartElements = screen.getAllByText(/cart/i);
 

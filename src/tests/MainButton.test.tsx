@@ -14,7 +14,7 @@ describe("MainButton component", () => {
     vi.restoreAllMocks();
   });
 
-  it("should render MainButton", () => {
+  it("MainButton должен рендериться", () => {
     render(
       <MantineProvider>
         <MainButton btnType="card" onClick={mockFunc} />
@@ -24,7 +24,7 @@ describe("MainButton component", () => {
     expect(btn).toBeInTheDocument();
   });
 
-  it("should look different depending on btnType", () => {
+  it("должен выглядеть по разному с ранзным btnType", () => {
     const { rerender } = render(
       <MantineProvider>
         <MainButton btnType="card" onClick={mockFunc} />
@@ -42,7 +42,7 @@ describe("MainButton component", () => {
     expect(btnCart).toBeInTheDocument();
   });
 
-  it("should call func on click", () => {
+  it("по клику должна вызываться функция", () => {
     render(
       <MantineProvider>
         <MainButton btnType="card" onClick={mockFunc} />

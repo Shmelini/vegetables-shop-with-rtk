@@ -3,49 +3,28 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import { MantineProvider } from "@mantine/core";
-import { CartContextProvider } from "../context";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 
 describe("CartPopup component", () => {
-  let product = {
-    id: 1,
-    name: "Brocolli - 1kg",
-    price: 120,
-    image:
-      "https://res.cloudinary.com/sivadass/image/upload/v1493620046/dummy-products/broccoli.jpg",
-    category: "vegetables",
-    count: 1,
-  };
-
-  it("should show empty cart when passing empty arr in cart prop", () => {
+  it("должен отображать пустую корзину с пустым стором", () => {
     render(
       <MantineProvider>
-        <CartContextProvider>
-          <CartPopup active={true} cart={[]} />
-        </CartContextProvider>
+        <Provider store={store()}>
+          <CartPopup active={true} />
+        </Provider>
       </MantineProvider>,
     );
     const emptyCart = screen.getByText(/You cart is empty!/i);
 
     expect(emptyCart).toBeInTheDocument();
   });
-  it("should show cart with product when passing correct arr in cart prop", () => {
-    render(
-      <MantineProvider>
-        <CartContextProvider>
-          <CartPopup active={true} cart={[product]} />
-        </CartContextProvider>
-      </MantineProvider>,
-    );
-    const productName = screen.getByText(/Brocolli/i);
-
-    expect(productName).toBeInTheDocument();
-  });
-  it("should change class when active changing", () => {
+  it("при переключении active должен меняться класс", () => {
     const { rerender } = render(
       <MantineProvider>
-        <CartContextProvider>
-          <CartPopup active={false} cart={[product]} />
-        </CartContextProvider>
+        <Provider store={store()}>
+          <CartPopup active={false} />
+        </Provider>
       </MantineProvider>,
     );
 
@@ -54,9 +33,9 @@ describe("CartPopup component", () => {
 
     rerender(
       <MantineProvider>
-        <CartContextProvider>
-          <CartPopup active={true} cart={[product]} />
-        </CartContextProvider>
+        <Provider store={store()}>
+          <CartPopup active={true} />
+        </Provider>
       </MantineProvider>,
     );
     expect(test.className).toMatch("popup-container--active");
